@@ -8,5 +8,6 @@ int main(void) {
  } 
 /*
 3)A) 8 processos
-3)c) 6 
+3)B) foto na mesma pasta 
+3)c) 8 vezes 
 */
