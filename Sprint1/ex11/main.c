@@ -8,7 +8,8 @@
 
 #define ARRAY_SIZE 1000
 int main(void) {
-    int status=0;
+    int status[5];
+    //int status=0;
 int status1=0;
 int status2=0;
 int status3=0;
@@ -29,6 +30,7 @@ if (p == 0) {
               result=numbers[i];
        }
     }
+    printf("1:%d\n",result);
     exit(result);
 }
 pid_t p1 = fork();
@@ -40,6 +42,7 @@ if (p1 == 0) {
               result=numbers[i];
        }
     }
+     printf("2:%d\n",result);
     exit(result);
 }
 pid_t p2 = fork();
@@ -50,6 +53,7 @@ if (p2 == 0) {
               result=numbers[i];
        }
     }
+     printf("3:%d\n",result);
     exit(result);
 }
 pid_t p3 = fork();
@@ -62,6 +66,7 @@ if (p3 == 0) {
               result=numbers[i];
        }
     }
+     printf("4:%d\n",result);
     exit(result);
 }
 pid_t p4 = fork();
@@ -73,27 +78,37 @@ if (p4 == 0) {
               result=numbers[i];
        }
     }
+     printf("5:%d\n",result);
     exit(result);
 }
-
-wait( &status);
-wait( &status1);
-wait( &status2);    
-wait( &status3);
-wait( &status4);
+for (int i = 0; i < 5; i++)
+{
+    wait(&(status[i]));
+}
 //B)
+for (int i = 0; i < 5; i++)
+{
+    if (result<WEXITSTATUS(status[i])){
+        result=WEXITSTATUS(status[i]);
+    }
+}
+
 int res[ARRAY_SIZE];
+printf("%d\n",result);
 for (int  i = 0; i < ARRAY_SIZE/2; i++)
 {
-    res[i]==( numbers[i]/result)*100;
-
+	
+    res[i]=((int)numbers[i]/result)*100;
+	printf("%d\n",res[i]);
 }
 //C)
+
 for (int i = ARRAY_SIZE/2; i < ARRAY_SIZE; i++)
 {
-    res[i]==( numbers[i]/result)*100;
+    res[i]=( numbers[i]/result)*100;
     printf("%d\n",res[i]);
 
 }
+
 
 }
