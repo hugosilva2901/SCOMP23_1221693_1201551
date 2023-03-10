@@ -1,29 +1,12 @@
-# README #
+# SCOMP 22-23 #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Repositório com a resolução dos exercicios das aulas PL's de SCOMP
 
-### What is this repository for? ###
+### Elementos do Grupo ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* 1201551 - António Martingo
+* 1221693 - Hugo Silva
 
-### How do I get set up? ###
+### Sprint 1 ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* --
