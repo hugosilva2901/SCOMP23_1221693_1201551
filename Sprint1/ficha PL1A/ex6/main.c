@@ -23,4 +23,5 @@ processes created.
     Resposta: Vão ser criados 16 processos.
 
 b)What change, if any, would you do to this code so that exactly 4 child processes are created?
-    Resposta: */
+    Resposta: Para garantir que apenas 4 processos filhos sao criados, devemos adicionar um exit(0) dentro do if
+                Isto garante que cada processo filho, apos a funcao "dormir" por 1 segundo , faca exit  */

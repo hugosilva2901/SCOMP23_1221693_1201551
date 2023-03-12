@@ -14,9 +14,7 @@ int main(void) {
 
 /*
 a) Which of the variables a, b, c and d will have the same value in both processes?
-    Answer: The variable a will have the same value in both processes
-            The variable b will have the same value on the parent process as the variable c on the child process
-            The variable c on the parent process does not have the same value as the variable d on the child process 
+    Answer: Apenas a variável a vai ter o mesmo valor nos dois processos.
 
 b) Draw a process tree that describes the processes created.
     

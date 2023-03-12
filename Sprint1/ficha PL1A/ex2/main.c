@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 /*
-Adicionado o waitpid() para que após cada fork() o processo pai espere que o processo filho termine.
+waitpid(pid_t pid, int *status, int options); 
 */
 
 int main(void) {
