@@ -1,0 +1,15 @@
+a) stty -a
+    intr = ^C; quit = ^\; susp = ^Z; 
+
+b) ./ex9
+    I like signals 
+    I like signals 
+    I like signals 
+    ^Cmake: *** [Makefile:11: run] Interrupt
+
+Quando corremos o programa, o mesmo imprime "I like signals" várias vezes no terminal a cada segundo.
+Ao utilizarmos o comando CTRL+C, é enviado o sinal SIGINT que cancela ou termina o programa a correr atualmente.
+
+
+f) 
+
