@@ -1,0 +1,5 @@
+
+int sigaction(int sig,const struct sigaction * act,struct sigaction * oact);
+int sig -> codigo do sinal 
+const struct sigaction * act-> Um apontador para uma estrutura que especifica o novo comportamento do sinal.
+

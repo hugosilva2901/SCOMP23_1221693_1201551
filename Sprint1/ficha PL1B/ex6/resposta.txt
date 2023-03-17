@@ -1,0 +1,9 @@
+Variáveis ​​globais são variáveis ​​que podem ser acessadas e modificadas de qualquer parte do programa,
+enquanto variáveis static são variáveis ​​que retêm seus valores nas chamadas de função e não são visíveis
+para outras partes do programa.
+
+geralmente não é seguro usar variáveis ​​globais ou static dentro de um signal handler, 
+pois os signal handler geralmente são executados de forma assíncrona em resposta a um sinal, 
+interrompendo o fluxo normal do programa. Se um signal handler modificar uma variável global ou static,
+ele pode criar condições de corrida ou outro comportamento inesperado, especialmente se a mesma variável
+também for acessada e modificada de outras partes do programa.

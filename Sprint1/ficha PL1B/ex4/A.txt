@@ -1,0 +1,2 @@
+sigaction() é geralmente considerado mais adequado para lidar com sinais porque fornece mais
+controle refinado sobre como os sinais são tratados e pode ajudar a evitar certos tipos de problemas que podem ocorrer com signal().
