@@ -6,25 +6,20 @@
 
 // Change the program so that each time a SIGQUIT signal is received the “I won’t let the process
 // end by pressing CTRL-\!” message is displayed.
-// Recompile and run the program and test by pressing several times CTRL-\.
 
-
-void sigint_handler(int sig) {
+void handle_SIGQUIT(int sig) {
     printf("I won't let the process end with CTRL- \\ !\n");
 }
 
 int main() {
+struct sigaction action;
+    printf("Pid do processo: %d \n ", getpid());
 
-    //Printing the process ID
-    printf("Process ID: %d \n", getpid());
-
-    
-
-    // if the signal received is SIGQUIT, call the sigint_handler function, which prints the message.
-    if (signal(SIGQUIT, sigint_handler) == SIG_ERR) {
-        perror("signal"); 
-        exit(1);
-    }
+    /* Clear the act variable. */
+    memset(&action, 0, sizeof(struct sigaction));
+    sigemptyset(&action.sa_mask);/*No signals blocked*/
+    action.sa_handler = handle_SIGQUIT;
+    sigaction(SIGQUIT, &action, NULL);
 
     for (;;) {
         printf("I like signals\n");

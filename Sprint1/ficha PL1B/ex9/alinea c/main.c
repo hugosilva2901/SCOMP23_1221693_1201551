@@ -6,18 +6,20 @@
 
 // Modify the program to print the “I won’t let the process end with CTRL-C!” message each time
 // a SIGINT signal is received.
-
-void sigint_handler(int sig) {
-    printf("I won't let the process end with CTRL-C!\n");
+void handle_SIGINT(int sig) {
+    printf("I won't let the process end with CTRL-C! \n");
 }
 
-int main() {
 
-    // If the signal received is SIGINT, call the sigint_handler function, which prints the message.
-    if (signal(SIGINT, sigint_handler) == SIG_ERR) {
-        perror("signal"); 
-        exit(1);
-    }
+int main() {
+    struct sigaction action;
+    printf("Pid do processo: %d \n ", getpid());
+
+    /* Clear the act variable. */
+    memset(&action, 0, sizeof(struct sigaction));
+    sigemptyset(&action.sa_mask);/*No signals blocked*/
+    action.sa_handler = handle_SIGINT;
+    sigaction(SIGINT, &action, NULL);
 
     for (;;) {
         printf("I like signals\n");
