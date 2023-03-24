@@ -1,11 +1,8 @@
-ex9: main.o
-	gcc main.o -o ex9
-	
-main.o: main.c
-	gcc -g -Wall -c main.c -o main.o
-
+main: main.o
+	gcc main.o -o main
+main.o:	main.c
+	gcc -Wall -g -c main.c -o main.o
+run: main
+		./main
 clean:
-	rm -f *.o ex9
-
-run: ex9
-	./ex9
+		rm *.o main
