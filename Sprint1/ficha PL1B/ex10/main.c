@@ -28,7 +28,7 @@ int main(){
             struct timespec req={0,10000000};
             nanosleep(&req,NULL); 
         }
-        kill(getppid(), SIGINT); // Send a SIGINT signal to the parent process
+        kill(getppid(), SIGINT); 
         exit(0);
     } else {
     
