@@ -10,6 +10,22 @@ b) ./ex9
 Quando corremos o programa, o mesmo imprime "I like signals" várias vezes no terminal a cada segundo.
 Ao utilizarmos o comando CTRL+C, é enviado o sinal SIGINT que cancela ou termina o programa a correr atualmente.
 
+c) alinea c folder
 
-f) 
+d) O programa foi alterado na alinea C, para que sempre que fossem pressionadas as teclas ctrl + C (enviado o sinal SIGINT), o processo não terminasse
+mas apresenta-se a mensagem “I won’t let the process end with CTRL-C!”.
+Quando pressionamos CTRL-\, é enviado ao processo o sinal SIGQUIT e o programa termina imediatamente.
+A mensagem acima não será impressa, pois o programa apenas está configurado para imprimir tal mensagem quando é recebido o sinal SIGINT e não SIGQUIT
 
+e) alinea e folder
+
+f) o programa foi terminado
+
+g) o programa não terminou e foi impressa a mensagem “I won’t let the process end by pressing CTRL-\!”
+
+h) No contexto do comando "kill", "%1" é referente ao primeiro "job" na tabela da shell.
+Quando suspendemos um processo com ctrl+z, a shell vai atibuir ao processo um "job number", que se apresenta
+entre [] quando usamos o comando "jobs"
+Quando fazemos "kill %1", estamos a dizer à shell para enviar um sinal SIGTERM (padrão) ao processo cujo
+job number é "1". Isto termina o processo suspenso.
+O simbolo % é usado para indicar que o argumento corresponde a um "job number" e não a um process id.
