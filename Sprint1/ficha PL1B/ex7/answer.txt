@@ -1,0 +1,12 @@
+a) According to the manual, an async-signal-safe function is one that can be safely called from within a signal handler.
+In particular, nonreentrant functions are generally unsafe to call from a signal handler.
+These functions do not use global or static variables and are either reentrant or non-interrupible by signals.
+Particularly, all functions from the stdio library are considered not async-signal safe.
+
+b) When a signal is delivered to a process, the flow of execution is interrupted and the signal handler is executed in its place.
+printf() is not safe to use inside a signal handler because it uses internal buffers to store the 
+formatted output before writing it to the output stream. If a signal is received while printf() is executing
+the buffer may be left in a inconsistent state, therefore leading to undefined behavior or even a crash.
+The write() function is deemed safe because it writes directly to a file descriptor, without relying on
+~internal buffers. So if the process receives a signal while executing, it can be safely interrupted without leaving
+any inconsistent state or data corruption.
