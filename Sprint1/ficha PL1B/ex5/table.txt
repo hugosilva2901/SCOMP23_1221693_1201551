@@ -1,20 +1,20 @@
-Sinal - Número - Ação
-SIGHUP - 1 - Termina o processo; é enviado o processo perde conexão com o seu "terminal de controlo".
-SIGINT - 2 - Termina o processo; Pode ser gerada ao usar CTRL + C. 
-SIGQUIT - 3 -              
-SIGILL - 4 -          
-SIGABRT - 6 -       
-SIGFPE - 8 -          
-SIGKILL - 9 -         
-SIGSEGV - 11 -         
-SIGPIPE - 13 - 
-SIGALRM - 14 -         
-SIGTERM - 15 -                 
-SIGUSR1 - 10 -            
-SIGUSR2 - 12 - 
-SIGCHLD - 17 -          
-SIGCONT - 18 - 
-SIGSTOP - 19 - 
-SIGTSTP - 20 - 
-SIGTTIN - 21 - 
-SIGTTOU - 22 - 
+Signal - Number - Action
+SIGHUP - 1 - Hangup detected on controlling terminal or death of controlling process
+SIGINT - 2 - Interrupt from keyboard 
+SIGQUIT - 3 - Quit from keyboard            
+SIGILL - 4 - Illegal Instruction         
+SIGABRT - 6 - Abort signal     
+SIGFPE - 8 - Floating-point exception     
+SIGKILL - 9 -  Kill signal       
+SIGSEGV - 11 - Invalid memory reference        
+SIGPIPE - 13 - Broken pipe: write to pipe with no readers
+SIGALRM - 14 - Timer signal         
+SIGTERM - 15 - Termination signal                 
+SIGUSR1 - 10 - User-defined signal 1           
+SIGUSR2 - 12 - User-defined signal 2
+SIGCHLD - 17 - Child stopped or terminated         
+SIGCONT - 18 - Continue if stopped
+SIGSTOP - 19 - Stop process
+SIGTSTP - 20 - Stop typed at terminal
+SIGTTIN - 21 - Terminal input for background process
+SIGTTOU - 22 - Terminal output for background process
