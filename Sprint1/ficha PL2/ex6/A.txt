@@ -1,0 +1,12 @@
+No programa que escrevemos, o processo pai cria
+a pipe canal e a fork 5 processos filhos.
+Cada processo filho calcula uma soma parcial de 200 elementos 
+das duas matrizes e writes the result to the write end of the pipe.
+O processo pai lê as somas parciais da extremidade lida do pipe
+e as soma para obter a soma total.
+Como há apenas um pipe e cada processo escreve nele e lê dele
+em uma ordem predefinida, não há necessidade de nenhum
+mecanismo de sincronização explícito.
+O pipe fornece sincronização implícita entre os processos,
+bloqueando as operações de leitura e gravação até que
+os dados estejam disponíveis
