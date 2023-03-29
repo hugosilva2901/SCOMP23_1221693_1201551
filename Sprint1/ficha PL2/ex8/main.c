@@ -37,12 +37,11 @@ int main() {
         if (n == 0) {
             printf("Child %d exiting...\n", i);
             exit(EXIT_SUCCESS);
+        }else{
+        printf("Child %d read message %s %d\n", i, msg.text, msg.round);
+        exit(msg.round);
         }
-        if (strcmp(msg.text, "Win") == 0 && msg.round == i) {
-            printf("Child %d won in round %d\n", i, msg.round);
-            exit(msg.round);
         }
-    }
         }
     }
 
