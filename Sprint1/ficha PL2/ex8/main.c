@@ -60,7 +60,7 @@ int main() {
     for (int i = 0; i < 10; i++) {
        
         if (WIFEXITED(status[i])) {
-             pid_t pid = wait(&status[i]);
+            pid_t pid = wait(&status[i]);
             int round = WEXITSTATUS(status[i]);
             printf("Child %d won in round %d\n", pid, round);
         }
