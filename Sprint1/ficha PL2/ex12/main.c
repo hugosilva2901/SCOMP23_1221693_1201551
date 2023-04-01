@@ -124,7 +124,7 @@ int main()
             srand( pe1.id);
             while (j<5)
             {
-            pe1.id= (rand() % 20) ;
+            pe1.id= (rand() % 16)+i ;
             pe1.child = i;
             write(pipe_fdPedido[1], &pe1, sizeof(pe1));
             struct product pchild;
