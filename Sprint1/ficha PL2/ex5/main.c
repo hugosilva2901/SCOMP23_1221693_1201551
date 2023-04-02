@@ -59,11 +59,6 @@ int main() {
             } else if (isupper(mensgaemn[i])) {
                     mensgaemn[i] = tolower(mensgaemn[i]);
                 }
-        //if (mensagem[i] >= 'a' && mensagem[i] <= 'z') {
-            //mensagem[i] -= 'a' - 'A'; // Convert lower case to upper case
-        //} else if (mensagem[i] >= 'A' && mensagem[i] <= 'Z') {
-            //mensagem[i] += 'a' - 'A'; // Convert upper case to lower case
-        //}
         }
 
         // envia a mensagem convertida para o cliente
