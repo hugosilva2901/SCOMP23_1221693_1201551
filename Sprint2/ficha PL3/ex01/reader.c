@@ -14,6 +14,7 @@ typedef struct {
 } Student;
 
 int main() {
+    int r;
     int fd = shm_open("/ex01", O_RDONLY, 0666); 
     /* shm_open(const char *name, int oflag, mode_t mode);
         name: nome da memória partilhada
@@ -40,8 +41,16 @@ int main() {
     printf("Nome Estudante: %s\n", student->name);
     printf("Morada do Estudante: %s\n", student->address);
 
-    munmap(student, SHM_SIZE); 
-    close(fd); 
+    r = munmap(student, SHM_SIZE); // disconnects
+    if(r < 0) { /*check error */
+        exit(1); 
+    }
 
+    r = close(fd); //closes
+    if (r < 0) /*check error */
+    {
+        exit(1);
+    }
+    
     return 0;
 }

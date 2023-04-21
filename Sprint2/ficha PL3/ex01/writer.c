@@ -13,6 +13,7 @@ typedef struct {
 } Student;
 
 int main() {
+    int r;
     int fd = shm_open("/ex01", O_CREAT | O_RDWR, 0666); // Temos um file descriptor que aponta para a memória partilhada, se não existir é criada, se existir é aberta para leitura e escrita
     /*  shm_open(const char *name, int oflag, mode_t mode);
         name: nome da memória partilhada
@@ -43,8 +44,15 @@ int main() {
     printf("Morada do Estudante: ");
     scanf(" %[^\n]s", student->address); // Lemos a morada do aluno, %[^\n]s serve para ler strings com espaços
 
-    munmap(student, SHM_SIZE);  // Desmapeamos a memória partilhada
-    close(fd); // Fechamos o file descriptor
+   r = munmap(student, SHM_SIZE);  // Desmapeamos a memória partilhada
+   if(r < 0) { /*check errors */
+       exit(1);
+    }
+
+    r = close(fd); // Fechamos o file descriptor
+    if(r < 0) { /* check errors */
+        exit(1); 
+    }
 
     return 0;
 }
