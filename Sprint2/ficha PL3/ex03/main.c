@@ -57,7 +57,7 @@ int main() {
             exit(1);
         }
 
-        exit(EXIT_SUCCESS);
+        exit(0);
     } else {
         // processo parent, age como writer
 
@@ -91,6 +91,6 @@ int main() {
             exit(1);
         }
 
-        exit(EXIT_SUCCESS);
+        exit(0);
     }
 }
