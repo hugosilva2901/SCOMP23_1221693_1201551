@@ -9,6 +9,7 @@
 
 #define STR_SIZE 50
 #define NR_DISC 10
+//commit fix
 
 //struct tirada do enunciado
 struct aluno {
