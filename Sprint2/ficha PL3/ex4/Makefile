@@ -1,7 +1,7 @@
 main: main.o
-	gcc main.o -o main
+	gcc main.o -o main -lrt
 main.o:	main.c
-	gcc --Wall -o main main.c -lrt
+	gcc -Wall -g -c main.c -o main.o -lrt
 run: main
 		./main
 clean:
