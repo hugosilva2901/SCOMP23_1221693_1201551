@@ -10,18 +10,13 @@
 #include <string.h>
 #include <errno.h>
 
-#define NR_CHILDREN 8
+#define N_CHILDREN 8
 #define MAX 200 
 
 int main() {
     int num[MAX];
-    sem_t *sem_numbers,*sem_out;
-    sem_numbers = sem_open("sem", O_CREAT , 0666, 1);
-    if(sem_numbers == SEM_FAILED){
-        perror("Error opening semaphore");
-        exit(1);
-    }
-
+    sem_t *sem_numbers[N_CHILDREN],*sem_out;
+   
     sem_out = sem_open("sem_out", O_CREAT , 0666, 1);
 
     int out = open("Output.txt", O_CREAT , 0666);
@@ -29,7 +24,17 @@ int main() {
         perror("Error opening file");
         exit(1);
     }
-
+for (int i = 0; i < N_CHILDREN; i++)
+{
+   char name[20];
+    sprintf(name,"sem%d",i);
+    sem_numbers[i] = sem_open(name, O_CREAT , 0666, (i==0)?1:0);
+    if (sem_numbers[i]==SEM_FAILED)
+    {
+       perror("Error opening semaphore");
+       exit(1);
+    }   
+}
     pid_t pid;
     for(int i = 0; i < N_CHILDREN; i++) {
         pid = fork();
@@ -46,10 +51,10 @@ int main() {
             }
             int j = 0, numeros;
             while(fscanf(in, "%d", &numeros) == 1 && j < MAX) { 
-                sem_wait(sem_numbers);
+                sem_wait(sem_numbers[i]);
                 num[j] = numeros; 
                 j++;
-                sem_post(sem_numbers);
+                sem_post(sem_numbers[(i+1)%N_CHILDREN]);
             }
             fclose(in);
             sem_wait(sem_out);
@@ -84,9 +89,15 @@ int main() {
     }
 
     printf("%s", file);
-    if(sem_unlink("sem") == -1) {
-        perror("Error unlinking semaphore");
-        exit(1);
+    for (int i = 0; i < N_CHILDREN; i++)
+    {
+    char name[20];
+    sprintf(name,"sem%d",i);
+    if (sem_unlink(name)==-1)
+    {
+       perror("Error opening semaphore");
+       exit(1);
+    }   
     }
     if(sem_unlink("sem_out") == -1) {
         perror("Error unlinking semaphore");
