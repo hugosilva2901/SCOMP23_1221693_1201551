@@ -10,7 +10,7 @@
 #include <string.h>
 #include <errno.h>
 
-#define NR_CHILDREN 8
+#define N_CHILDREN 8
 #define MAX 200 
 
 int main() {

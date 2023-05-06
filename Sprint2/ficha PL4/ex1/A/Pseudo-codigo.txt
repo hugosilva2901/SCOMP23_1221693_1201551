@@ -1,0 +1,27 @@
+Define constants NR_CHILDREN and MAX
+Initialize an array of integers called num with size MAX
+Create a semaphore called sem with an initial value of 1
+Open a file called "Output.txt" for writing
+For i = 0 to NR_CHILDREN - 1:
+    Create a child process using fork()
+    If the current process is a child process:
+        Close the file descriptor for "Output.txt"
+        Open a file called "Numbers.txt" for reading
+        Initialize an integer variable j to 0
+        While there are numbers to read from "Numbers.txt" and j < MAX:
+        Wait on the semaphore sem
+        Read a number from "Numbers.txt" and store it in num[j]
+        Increment j
+        ignal the semaphore sem
+        Close the file "Numbers.txt"
+    Open the file "Output.txt" for appending
+    For k = 0 to j - 1:
+        Write the process ID and num[k] to "Output.txt"
+    Close the file "Output.txt"
+    Exit the child process
+Wait for all child processes to finish
+Get the size of the file "Output.txt"
+Map the contents of "Output.txt" into memory
+Print the contents of the mapped memory
+Unlink the semaphore sem
+Close the file "Output.txt"

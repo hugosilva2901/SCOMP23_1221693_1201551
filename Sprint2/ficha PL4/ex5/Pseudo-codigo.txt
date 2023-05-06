@@ -1,0 +1,28 @@
+Create three semaphores called sem_child1, sem_child2, and sem_child3 with initial values of 0
+Create three child processes using fork()
+If the current process is the first child process:
+    Print "Sistemas"
+    Post to sem_child2
+    Wait on sem_child1
+    Print "a"
+    Post to sem_child2
+    Exit the child process
+If the current process is the second child process:
+    Wait on sem_child2
+    Print "de"
+    Post to sem_child3
+    Wait on sem_child2
+    Print "melhor"
+    Post to sem_child3
+    Exit the child process
+If the current process is the third child process:
+    Wait on sem_child3
+    Print "Computadores-"
+    Post to sem_child1
+    Wait on sem_child3
+    Print "disciplina!"
+    Post to sem_child1
+    Exit the child process
+If the current process is the parent process:
+    Wait for all child processes to finish
+    Unlink and close all three semaphores
