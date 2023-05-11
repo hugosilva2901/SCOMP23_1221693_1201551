@@ -1,3 +1,6 @@
+synchronization pattern: synchronization of execution
+(3 semaphores; all initialized at 0)
+
 Create three semaphores called sem_child1, sem_child2, and sem_child3 with initial values of 0
 Create three child processes using fork()
 If the current process is the first child process:

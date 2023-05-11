@@ -29,7 +29,7 @@ int main() {
     }
 
     pid_t pid;
-    for(int i = 0; i < N_CHILDREN; i++) {
+    for(int i = 0; i < NR_CHILDREN; i++) {
         pid = fork();
         if(pid == -1){
             perror("Error creating child process");
@@ -63,7 +63,7 @@ int main() {
         }
     }
 
-    for(int i = 0; i < N_CHILDREN; i++){
+    for(int i = 0; i < NR_CHILDREN; i++){
         wait(NULL);
     }
 

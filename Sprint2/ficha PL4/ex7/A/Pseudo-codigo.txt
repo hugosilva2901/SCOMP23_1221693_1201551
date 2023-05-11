@@ -1,0 +1,20 @@
+synchronization pattern: synchronization of execution
+(3 semaphores; all initialized at 0)
+
+Initialize semaphores for chips, beer, and eat
+Create a child process using fork
+If the process is a child process:
+    Sleep for a random amount of time
+    Buy chips
+    Wait for the eat semaphore
+    Eat and drink
+If the process is the parent process:
+    Sleep for a random amount of time
+    Buy beer
+    Wait for the chips semaphore
+    Wait for the beer semaphore
+    Post to the eat semaphore
+    Eat and drink
+    Wait for the child process to finish
+Destroy semaphores for chips, beer, and eat
+Unmap memory for semaphores

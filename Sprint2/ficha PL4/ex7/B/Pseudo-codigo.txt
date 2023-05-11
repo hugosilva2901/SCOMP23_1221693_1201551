@@ -1,0 +1,41 @@
+synchronization pattern: synchronization of execution
+(3 semaphores; all initialized at 0)
+
+Define NUM_PROCESSES as 6
+Create semaphores sem_chips, sem_beer, and sem_eat
+Create shared memory for chips_count and beer_count
+
+Define function buy_chips with input id:
+    Print "Process id: Buying chips"
+    Increment chips_count
+    If chips_count + beer_count equals NUM_PROCESSES:
+        Post sem_eat NUM_PROCESSES times
+
+Define function buy_beer with input id:
+    Print "Process id: Buying beer"
+    Increment beer_count
+    If chips_count + beer_count equals NUM_PROCESSES:
+        Post sem_eat NUM_PROCESSES times
+
+Define function eat_and_drink with input id:
+    Print "Process id: Eating and drinking"
+
+In main function:
+    Initialize semaphores sem_chips, sem_beer, and sem_eat with values 0
+    Initialize chips_count and beer_count to 0
+    For i from 0 to NUM_PROCESSES:
+        Create a new process
+        If in child process:
+            Set id to i + 1
+            Sleep for 1 second
+            If random number is even:
+                Call buy_chips with input id
+            Else:
+                Call buy_beer with input id
+            Wait for sem_eat
+            Call eat_and_drink with input id
+            Exit process
+    Wait for all child processes to finish
+    Destroy semaphores sem_chips, sem_beer, and sem_eat
+    Unmap shared memory for chips_count and beer_count
+    

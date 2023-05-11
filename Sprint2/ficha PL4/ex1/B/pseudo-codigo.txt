@@ -1,3 +1,6 @@
+synchronization pattern: synchronization of execution
+(2 semaphores; all initialized at 1)
+
 Define constants N_CHILDREN and MAX
 Initialize an array of integers called num with size MAX
 Create a semaphore called sem_numbers with an initial value of 1
