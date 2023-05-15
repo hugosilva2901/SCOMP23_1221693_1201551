@@ -7,8 +7,8 @@
 int main() {
     sem_t *sem_parent, *sem_child;
     int s_count = 0, c_count = 0;
-    sem_parent = sem_open("/sem_parent", O_CREAT, 0644, 1)
-    sem_child = sem_open("/sem_child", O_CREAT, 0644, 0)
+    sem_parent = sem_open("/sem_parent", O_CREAT, 0644, 1);
+    sem_child = sem_open("/sem_child", O_CREAT, 0644, 0);
     pid_t pid = fork();
     if (pid == 0) { 
         while (1) {
