@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <time.h>
+#include <semaphore.h>
 
 #define MAX_FRASES 50
 #define MAX_CHARS 80
@@ -16,7 +17,7 @@ struct memoria_partilhada {
 };
 
 int main() {
-    srand(time(NULL)); 
+    srand(time(NULL));
     int fd = shm_open("/ex02", O_CREAT | O_RDWR, 0666);
     if (fd == -1) {
         perror("shm_open");
@@ -29,9 +30,12 @@ int main() {
         return 1;
     }
     mem->contador = 0;
+    
+    sem_t *sem = sem_open("/sem_ex02", O_CREAT | O_RDWR, 0666, 1);
+    
     while (mem->contador < MAX_FRASES) {
-        int random_time = rand() % 5 + 1;
-        sleep(random_time);
+        sem_wait(sem);
+        
         int index = -1;
         for (int i = 0; i < MAX_FRASES; i++) {
             if (mem->texto[i][0] == '\0') {
@@ -49,7 +53,15 @@ int main() {
         strncpy(mem->texto[index], texto, MAX_CHARS);
         mem->contador++;
         printf("Escrevi: %s\n", mem->texto[index]);
+        
+        sem_post(sem);
+        
+        int random_time = rand() % 5 + 1;
+        sleep(random_time);
     }
+    
+    sem_close(sem);
+    
     if (munmap(mem, sizeof(struct memoria_partilhada)) == -1) {
         perror("munmap");
         return 1;
@@ -60,4 +72,3 @@ int main() {
     }
     return 0;
 }
-
