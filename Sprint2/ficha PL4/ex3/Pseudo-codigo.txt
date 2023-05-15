@@ -1,0 +1,26 @@
+synchronization pattern: synchronization of execution
+(1 semaphores; initialized at 1)
+
+Open shared memory object
+Map shared memory object
+Initialize shared memory object
+Open semaphore
+While the number of lines written in the shared memory is less than MAX_FRASES:
+    Wait at most 12 seconds to acquire the semaphore
+    If the deadline is missed, warn the user and continue to the next iteration
+    Find the first free string in the shared memory
+    If there are no free strings, break the loop
+    Generate a random number between 1 and 100
+    If the random number is less than or equal to 30 and there is at least one line written in the shared memory:
+        Remove the last written string from the shared memory
+        Decrement the number of lines written in the shared memory
+        Print a message indicating that the last line was removed
+    Else:
+        Write a new line to the shared memory with the text "I'm the Father - with PID X", where X is the PID of the process
+        Increment the number of lines written in the shared memory
+        Print a message indicating that a new line was written
+    Release the semaphore
+    Sleep for a random time between 1 and 5 seconds
+Close semaphore
+Unmap shared memory object
+Close shared memory object
