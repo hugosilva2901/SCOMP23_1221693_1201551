@@ -1,0 +1,26 @@
+synchronization pattern: synchronization of execution
+(semaphore; a initialized at 1)
+
+Define constants for maximum number of readers and shared memory key
+Define a structure for shared memory with a string and an integer for the number of readers
+Declare shared memory and semaphore pointers
+Define a reader function that takes an integer id as an argument
+In the reader function:
+    Wait for 1 second
+    Wait on the semaphore
+    Print the id, string, and number of readers from shared memory
+    Increment the number of readers in shared memory
+    Post to the semaphore
+In the main function:
+    Get a shared memory segment using the shared memory key and size of the shared memory structure
+    Attach to the shared memory segment
+    Open a semaphore with the name "/mutex" and initial value 1
+    Loop MAX_READERS times:
+        Fork a new process
+        In the child process, call the reader function with the loop index as an argument and exit
+    Loop MAX_READERS times:
+        Wait for a child process to exit
+        If wait returns -1, print an error message and exit with status 1
+    Close the semaphore
+    Unlink the semaphore with name "/mutex"
+Return 0 from main function.

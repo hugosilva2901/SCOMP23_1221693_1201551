@@ -1,0 +1,41 @@
+synchronization pattern: synchronization of execution
+(semaphore; a initialized at 1)
+
+Define constants for maximum number of readers and shared memory key
+Define a structure for shared memory with a string and integers for the number of readers and writers
+Declare shared memory and semaphore pointers
+Define a signal handler function that takes an integer signal as an argument
+In the signal handler function:
+    Close the mutex semaphore
+    Unlink the mutex semaphore with name "/mutex"
+    Close the write mutex semaphore
+    Unlink the write mutex semaphore with name "/write_mutex"
+    Exit with status 0
+Define a reader function that takes an integer id as an argument
+In the reader function:
+    Wait for 1 second
+    Wait on the write mutex semaphore
+    Post to the write mutex semaphore
+    Wait on the mutex semaphore
+    Print the id, string, and number of readers from shared memory
+    Increment the number of readers in shared memory
+    Post to the mutex semaphore
+In the main function:
+    Register signal handlers for SIGINT and SIGTERM signals using signal_handler function
+    Get a shared memory segment using the shared memory key and size of the shared memory structure with IPC_CREAT flag
+    If shmget returns -1, print an error message and exit with status 1
+    Attach to the shared memory segment
+    If shmat returns -1, print an error message and exit with status 1
+    Open a semaphore with name "/mutex" and initial value 1
+    If sem_open returns SEM_FAILED, print an error message and exit with status 1
+    Open a semaphore with name "/write_mutex" and initial value 1
+    If sem_open returns SEM_FAILED, print an error message and exit with status 1
+    Set readers and writers in shared memory to 0
+    Loop MAX_READERS times:
+        Fork a new process 
+        In the child process, call reader function with loop index as argument and exit with status 0 
+        If fork returns -1, print an error message and exit with status 1 
+    Loop MAX_READERS times: 
+        Wait for a child process to exit 
+        If wait returns -1, print an error message and exit with status 1 
+Return 0 from main function.
