@@ -4,6 +4,41 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+
+/*Write a program that creates a new process. The father and the child should indefinitely write the
+letters ’S’ and ’C’, respectively:
+Father process Child process
+while TRUE do: while TRUE do:
+print ”S” print ”C”
+Implement a policy based on semaphores such that at any moment the number of ’S’ or ’C’ differs by
+at most two. The solution should output strings such as: “SCCSSSCCSCSCCC”.
+Note: Use fflush(stdout) after every printf() so the text is not buffered and printed immediately.*/
+
+
+/*Pattern: Temos um semaforo inicializado a 1, para acesso exclusivo.
+            Temos um semaforo inicializado a 0, para sincronizacao.
+            
+Pseudocode:
+        Codigo para o pai
+        while true
+            espera que o filho escreva
+            se a diferenca entre Ss e Cs for menor ou igual a 2
+                escreve S
+            senao
+                espera que o filho escreva
+
+        Codigo para o filho
+        while true
+            espera que o pai escreva
+            se a diferenca entre Ss e Cs for menor ou igual a 2
+                escreve C
+            senao
+                espera que o pai escreva
+
+
+
+ */
+
 int main() {
     sem_t *sem_parent, *sem_child;
     int s_count = 0, c_count = 0;
