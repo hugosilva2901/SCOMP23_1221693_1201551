@@ -4,6 +4,8 @@
 #include <semaphore.h>
 #include <sys/mman.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 #define NUM_PROCESSES 6
 
 sem_t *sem_chips;
@@ -38,15 +40,12 @@ void eat_and_drink(int id) {
 }
 
 int main() {
-    sem_chips = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    sem_beer = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    sem_eat = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    sem_chips = sem_open("/sem_chips", O_CREAT, 0644, 0);
+    sem_beer = sem_open("/sem_beer", O_CREAT, 0644, 0);
+    sem_eat = sem_open("/sem_eat", O_CREAT, 0644, 0);
     chips_count = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     beer_count = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
-    sem_init(sem_chips, 1, 0);
-    sem_init(sem_beer, 1, 0);
-    sem_init(sem_eat, 1, 0);
     *chips_count = 0;
     *beer_count = 0;
 
@@ -75,9 +74,6 @@ int main() {
     sem_destroy(sem_beer);
     sem_destroy(sem_eat);
 
-    munmap(sem_chips, sizeof(sem_t));
-    munmap(sem_beer, sizeof(sem_t));
-    munmap(sem_eat, sizeof(sem_t));
     munmap(chips_count, sizeof(int));
     munmap(beer_count, sizeof(int));
 

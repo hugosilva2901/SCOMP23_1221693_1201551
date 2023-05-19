@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <semaphore.h>
-#include <sys/mman.h>
+#include <fcntl.h>
 #include <sys/wait.h>
 
 sem_t *sem_chips;
@@ -24,13 +24,9 @@ void eat_and_drink() {
 }
 
 int main() {
-    sem_chips = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    sem_beer = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    sem_eat = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-
-    sem_init(sem_chips, 1, 0);
-    sem_init(sem_beer, 1, 0);
-    sem_init(sem_eat, 1, 0);
+    sem_chips = sem_open("/sem_chips", O_CREAT, 0644, 0);
+    sem_beer = sem_open("/sem_beer", O_CREAT, 0644, 0);
+    sem_eat = sem_open("/sem_eat", O_CREAT, 0644, 0);
 
     pid_t pid = fork();
 
@@ -54,9 +50,6 @@ int main() {
     sem_destroy(sem_beer);
     sem_destroy(sem_eat);
 
-    munmap(sem_chips, sizeof(sem_t));
-    munmap(sem_beer, sizeof(sem_t));
-    munmap(sem_eat, sizeof(sem_t));
 
     return 0;
 }
