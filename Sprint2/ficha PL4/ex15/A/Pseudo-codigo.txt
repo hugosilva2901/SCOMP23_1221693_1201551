@@ -1,0 +1,19 @@
+synchronization pattern: synchronization of execution
+(semaphore; a initialized at 10)
+
+Define MAX_CAPACITY as 10
+Open a named semaphore "/club_sem" with an initial value of MAX_CAPACITY
+For i = 0 to MAX_CAPACITY*2:
+    Create a child process using fork
+    If the process is a child process:
+        Wait on the semaphore
+        Print "Client entered."
+        Sleep for 5 seconds
+        Print "Client left."
+       Post to the semaphore
+       Exit the child process
+For i = 0 to MAX_CAPACITY*2:
+    Wait for a child process to finish
+Close the semaphore
+Unlink the named semaphore
+Return 0

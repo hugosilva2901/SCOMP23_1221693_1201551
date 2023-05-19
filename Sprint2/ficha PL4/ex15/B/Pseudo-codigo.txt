@@ -1,0 +1,44 @@
+synchronization pattern: synchronization of execution
+( 3 semaphore; one initialized at 10, and the other 2 initialized at 1)
+
+
+Define MAX_CAPACITY as 10
+ Define an enumeration client_type with values VIP, SPECIAL, and NORMAL
+ Define a structure client with fields type (of type client_type) and duration (of type int)
+ Declare three semaphore pointers sem_vip, sem_special, and sem_normal
+ Define a function enter_club that takes a client argument:
+    Switch on the type field of the client argument:
+        If the type is VIP:
+            Wait on the sem_vip semaphore
+            Print "VIP client entered."
+       If the type is SPECIAL:
+           Wait on both the sem_special and sem_vip semaphores
+           Print "Special client entered."
+       If the type is NORMAL:
+           Wait on all three semaphores: sem_normal, sem_special, and sem_vip
+           Print "Normal client entered."
+ Define a function leave_club that takes a client argument:
+    Switch on the type field of the client argument:
+        If the type is VIP:
+            Print "VIP client left."
+            Post to the sem_vip semaphore
+        If the type is SPECIAL:
+            Print "Special client left."
+            Post to both the sem_special and sem_vip semaphores
+        If the type is NORMAL:
+            Print "Normal client left."
+            Post to all three semaphores: sem_normal, sem_special, and sem_vip
+ Open three named semaphores "/club_sem_vip", "/club_sem_special", and "/club_sem_normal" with initial values of MAX_CAPACITY, 1, and 1 respectively
+ Create an array of clients with different types and durations
+ For i = 0 to MAX_CAPACITY*2:
+    Create a child process using fork
+    If the process is a child process:
+        Call enter_club with the i-th client in the array
+        Sleep for a number of seconds equal to the duration of the i-th client in the array
+        Call leave_club with the i-th client in the array
+        Exit the child process
+ For i = 0 to MAX_CAPACITY*2:
+    Wait for a child process to finish
+ Close all three semaphores
+ Unlink all three named semaphores
+ Return 0
