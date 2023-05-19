@@ -12,9 +12,12 @@ In the reader function:
     Increment the number of readers in shared memory
     Post to the semaphore
 In the main function:
-    Get a shared memory segment using the shared memory key and size of the shared memory structure
-    Attach to the shared memory segment
-    Open a semaphore with the name "/mutex" and initial value 1
+    Open a shared memory object with name “/shared_mem” and size of the shared memory structure using shm_open.
+    If shm_open returns -1, print an error message and exit with status 1.
+    Map the shared memory object into the process’s address space using mmap.
+    If mmap returns MAP_FAILED, print an error message and exit with status 1.
+    Open a semaphore with name “/mutex” and initial value 1 using sem_open.
+    If sem_open returns SEM_FAILED, print an error message and exit with status 1.
     Loop MAX_READERS times:
         Fork a new process
         In the child process, call the reader function with the loop index as an argument and exit
