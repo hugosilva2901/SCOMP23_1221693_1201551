@@ -23,7 +23,7 @@ struct aluno {
 // - a maior nota e a menor nota
 // - a media das notas
 // - um flag para indicar que os dados estao prontos para ler/escrever (data_ready)
-struct shared_data {
+struct partilha {
     struct aluno student;
     int highest_grade;
     int lowest_grade;
@@ -33,7 +33,7 @@ struct shared_data {
 
 int main() {
     int fd;
-    struct shared_data *data;
+    struct partilha *data;
     pid_t pid1, pid2;
 
     // Create a shared memory area
@@ -42,11 +42,11 @@ int main() {
         perror("shm_open");
         exit(1);
     }
-    if (ftruncate(fd, sizeof(struct shared_data)) == -1) {
+    if (ftruncate(fd, sizeof(struct partilha)) == -1) {
         perror("ftruncate");
         exit(1);
     }
-    data = (struct shared_data *)mmap(NULL, sizeof(struct shared_data), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    data = (struct partilha *)mmap(NULL, sizeof(struct partilha), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (data == MAP_FAILED) {
         perror("mmap");
         exit(1);
@@ -104,9 +104,9 @@ int main() {
             data->media = sum / NR_DISC;
             // imprimir a informacao
             printf("Processo filho 2\n ");
-            printf("Student number: %d\n", data->student.numero);
-            printf("Student name: %s\n", data->student.nome);
-            printf("Average grade: %.2f\n", data->media);
+            printf("numero: %d\n", data->student.numero);
+            printf("nome: %s\n", data->student.nome);
+            printf("media: %.2f\n", data->media);
             exit(0);
         }
        
@@ -129,7 +129,7 @@ waitpid(pid1, &status, 0);
 waitpid(pid2, &status, 0);
 
 // eliminar a memoria partilhada
-if (munmap(data, sizeof(struct shared_data)) == -1) {
+if (munmap(data, sizeof(struct partilha)) == -1) {
     perror("munmap");
     exit(1);
 }
