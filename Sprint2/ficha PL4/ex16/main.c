@@ -190,7 +190,7 @@ int main() {
     }
     printf("]\n");
 
-    printf("O maior número encontrado é: %d\n", dados->highest_value);
+    printf("maior número: %d\n", dados->highest_value);
 
     int checkAux;
 
