@@ -1,0 +1,20 @@
+synchronization pattern: synchronization of execution
+(2 semaphore; all initialized at 1)
+
+ Define constants for semaphore and shared memory names and number of children
+ Define a Ticket structure with a ticketNumber field
+ In the main function:
+     Open two semaphores with initial value 0
+     Check if semaphores opened successfully, exit with error if not
+     Create and open a shared memory object
+     Check if shared memory object opened successfully, exit with error if not
+     Map the shared memory object to an integer pointer
+     Check if mapping was successful, exit with error if not
+     Set the ticket value to 0
+     Loop NR_CHILDREN times:
+         Increment the ticket value
+         Print the ticket value
+         Post on the wait_for_ticket semaphore
+         Wait on the ticket_to_customer semaphore
+     Close both semaphores and check for errors
+     Return 0
