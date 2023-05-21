@@ -78,7 +78,7 @@ int main() {
     shared_data* dados;
     pid_t pid;
     srand(time(NULL));
-    fd = shm_open("/ex17", O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
+    fd = shm_open("/ex16", O_CREAT | O_EXCL | O_RDWR, S_IRUSR | S_IWUSR);
     if (fd < 0) {
         perror("shm_open");
         return 1;
@@ -238,6 +238,6 @@ int main() {
         perror("Error in close()");
         return 1;
     }
-    shm_unlink("/ex17");
+    shm_unlink("/ex16");
     return 0;
 }
